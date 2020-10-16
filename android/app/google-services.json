@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "524572322847",
+    "firebase_url": "https://usc-foods.firebaseio.com",
+    "project_id": "usc-foods",
+    "storage_bucket": "usc-foods.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:524572322847:android:8fbe7778f2142a1560f92a",
+        "android_client_info": {
+          "package_name": "com.uscfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "524572322847-8kbl9lo539j8int0as0gmp6mt9gtorcm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uscfood",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "524572322847-u38kcpsicckm3l5sil3p0qbjdtupnh02.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_V0O8fByRi8jo4731ema3yz4hPYe62Pk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "524572322847-u38kcpsicckm3l5sil3p0qbjdtupnh02.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
