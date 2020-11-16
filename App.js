@@ -1,38 +1,8 @@
-// In App.js in a new project
-
-import * as React from 'react';
-import {View, Text} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-//Screens
-import Landing from './src/screens/Landing';
-import Login from './src/screens/Login';
-import Home from './src/screens/Home';
-
-const Stack = createStackNavigator();
+import React, {useState} from 'react';
+import Providers from './src/navigation';
 
 const App = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Landing"
-          component={Landing}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Login"
-          component={Login}
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+  return <Providers />;
 };
 
 export default App;

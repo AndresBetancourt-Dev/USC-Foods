@@ -5,8 +5,20 @@ export const primaryStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  alignCenter: {
+  innerLayout: {
     flex: 1,
     alignItems: 'center',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  width: {
+    width: '100%',
+  },
+  loading: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#00b3ff',
   },
 });

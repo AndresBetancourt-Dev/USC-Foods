@@ -1,86 +1,140 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
-  KeyboardAvoidingView,
-  TextInput,
-  StyleSheet,
   Text,
-  Platform,
-  TouchableWithoutFeedback,
-  Button,
-  Keyboard,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  ToastAndroid,
 } from 'react-native';
+import FormButton from '../components/FormButton';
+import FormInput from '../components/FormInput';
+import SocialButton from '../components/SocialButton';
+import {AuthContext} from '../navigation/AuthProvider';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#00b3ff',
+    padding: 20,
   },
-  inner: {
-    padding: 24,
-    flex: 1,
-    justifyContent: 'space-around',
+  logo: {
+    height: 150,
+    width: 150,
+    resizeMode: 'cover',
   },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
+  text: {
+    fontSize: 28,
+    marginBottom: 10,
+    color: '#fff',
+    fontFamily: 'Poppins-ExtraBold',
   },
-  textInput: {
-    height: 40,
-    borderColor: '#000000',
-    borderBottomWidth: 1,
-    marginBottom: 36,
+  navButton: {
+    marginTop: 15,
   },
-  btnContainer: {
-    backgroundColor: 'white',
-    marginTop: 12,
+  forgotButton: {
+    marginVertical: 20,
+  },
+  navButtonText: {
+    fontSize: 18,
+    fontWeight: '500',
+    color: '#fff',
   },
 });
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: '',
-      pass: '',
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+const Login = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const {login} = useContext(AuthContext);
 
-  handleSubmit = () => {
-    if (this.state.pass && this.state.user) {
-      console.log(this.state.user + ' ' + this.state.pass);
-    } else {
-      console.log('Estan vacios');
+  const handleLogin = async () => {
+    console.log(email);
+    if (email === '' || password === '') {
+      ToastAndroid.show(
+        'Debe ingresar su correo y su contraseña',
+        ToastAndroid.SHORT,
+      );
+      return;
     }
+    login(email, password);
   };
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={require('../assets/images/Main/usc-food-logo.png')}
+      />
+      <Text style={styles.text}>USC Foods</Text>
+      <FormInput
+        labelValue={email}
+        onChangeText={(userEmail) => {
+          setEmail(userEmail);
+        }}
+        iconType="user"
+        placeholderText="Usuario"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
+      <FormInput
+        iconType="lock"
+        onChangeText={(userPassword) => {
+          setPassword(userPassword);
+        }}
+        placeholderText="Contraseña"
+        secureTextEntry={true}
+      />
+      <FormButton
+        buttonTitle="Login"
+        onPress={() => handleLogin()}></FormButton>
+      <TouchableOpacity
+        style={styles.forgotButton}
+        onPress={() => {
+          ToastAndroid.show(
+            'Función no disponible actualmente',
+            ToastAndroid.SHORT,
+          );
+        }}>
+        <Text style={styles.navButtonText}>¿Olvidaste tu contraseña?</Text>
+      </TouchableOpacity>
+      <SocialButton
+        buttonTitle="Facebook"
+        buttonType="facebook"
+        color="#fff"
+        bgColor="#4867aa"
+        onPress={() => {
+          ToastAndroid.show(
+            'Función no disponible actualmente',
+            ToastAndroid.SHORT,
+          );
+        }}
+      />
 
-  render() {
-    return (
-      <KeyboardAvoidingView
-        behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <View style={styles.inner}>
-            <Text style={styles.header}>Login</Text>
-            <TextInput
-              placeholder="Username"
-              style={styles.textInput}
-              onChangeText={(text) => this.setState({user: text})}
-            />
-            <TextInput
-              secureTextEntry={true}
-              placeholder="Password"
-              style={styles.textInput}
-              onChangeText={(text) => this.setState({pass: text})}
-            />
-            <View style={styles.btnContainer}>
-              <Button title="Submit" onPress={() => this.handleSubmit()} />
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </KeyboardAvoidingView>
-    );
-  }
-}
+      <SocialButton
+        buttonTitle="Google"
+        buttonType="google"
+        color="#fff"
+        bgColor="#de4f41"
+        onPress={() => {
+          ToastAndroid.show(
+            'Función no disponible actualmente',
+            ToastAndroid.SHORT,
+          );
+        }}
+      />
+      <TouchableOpacity
+        style={styles.forgotButton}
+        onPress={() => {
+          navigation.navigate('SignUp');
+        }}>
+        <Text style={styles.navButtonText}>
+          ¿No tienes una cuenta? Creala aquí
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 export default Login;
