@@ -8,17 +8,13 @@ import {
 } from './Header.styles';
 
 const Header = (props) => {
-
   const handleUserAvatarPressed = () => {
     props.navigation.openDrawer();
   };
 
   return (
     <HeaderContainer>
-      <UserAvatarButton onPress={handleUserAvatarPressed}>
-    
-        <UserAvatar   / >
-      </UserAvatarButton>
+      <UserAvatarButton onPress={handleUserAvatarPressed} />
       <UserAdress> </UserAdress>
       <Cupon>Buscar</Cupon>
     </HeaderContainer>

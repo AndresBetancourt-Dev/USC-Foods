@@ -7,7 +7,11 @@ const StackContact = createStackNavigator();
 const ContactStack = () => {
   return (
     <StackContact.Navigator>
-      <StackContact.Screen name="ContactScreen" component={Contact} />
+      <StackContact.Screen
+        name="ContactScreen"
+        component={Contact}
+        options={{headerShown: false}}
+      />
     </StackContact.Navigator>
   );
 };

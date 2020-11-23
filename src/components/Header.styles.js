@@ -8,14 +8,11 @@ export const HeaderContainer = styled.View`
   align-items: center;
   padding: 10px;
   background-color: #fff;
- 
-  
-  
 `;
 
 export const UserAvatar = styled.View`
-  width: 30;
-  height: 30;
+  width: 30px;
+  height: 30px;
   background-color: #00b3ff;
   border-radius: 50px;
 `;
