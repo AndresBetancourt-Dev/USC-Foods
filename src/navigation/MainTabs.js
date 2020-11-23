@@ -5,6 +5,7 @@ import Contact from './stacks/ContactStack';
 import Home from '../screens/Home';
 import Restaurantes from '../screens/Restaurantes';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import RestaurantesStack from './stacks/RestaurantesStack';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -13,19 +14,19 @@ const MainTabs = () => {
     <Tab.Navigator
       initialRouteName="Home"
       activeColor="#fff"
-      inactiveColor="#fff"
+      inactiveColor="#ddd"
       barStyle={{backgroundColor: '#00b3ff'}}>
       <Tab.Screen
         name="Restaurantes"
-        component={Restaurantes}
+        component={RestaurantesStack}
         options={{
-          tabBarIcon: ({color}) => {
+          tabBarIcon: () => (
             <MaterialCommunityIcons
               name="silverware"
               color={'#fff'}
               size={25}
-            />;
-          },
+            />
+          ),
         }}
       />
       <Tab.Screen
@@ -41,9 +42,9 @@ const MainTabs = () => {
         name="Contacto"
         component={Contact}
         options={{
-          tabBarIcon: ({color}) => {
-            <MaterialCommunityIcons name="map" color={'#fff'} size={25} />;
-          },
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="map" color={'#fff'} size={25} />
+          ),
         }}
       />
     </Tab.Navigator>

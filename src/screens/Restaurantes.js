@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Text, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
 import RestaurantItem from '../components/RestaurantItem';
+import {RestaurantContext} from '../navigation/RestaurantProvider';
 
-const Restaurantes = () => {
+const Restaurantes = (props) => {
+  const {getAllRestaurants, restaurants} = useContext(RestaurantContext);
   const handleClick = () => {
     console.log('clikc');
   };
+
+  useEffect(() => {
+    getAllRestaurants();
+  }, []);
   return (
     <View>
       <Header />
@@ -22,22 +28,18 @@ const Restaurantes = () => {
           }}>
           Restaurantes
         </Text>
-
-        <RestaurantItem
-          image={require('../assets/images/SliderHome/burger.jpg')}
-          title={'Restaurante'}
-          shortDescription={'Descripcion Corta'}
-        />
-        <RestaurantItem
-          image={require('../assets/images/SliderHome/empanadas.jpg')}
-          title={'Restaurante'}
-          shortDescription={'Descripcion Corta'}
-        />
-        <RestaurantItem
-          image={require('../assets/images/SliderHome/salchipapa.jpg')}
-          title={'Restaurante'}
-          shortDescription={'Descripcion Corta'}
-        />
+        {restaurants.map((restaurant) => {
+          return (
+            <RestaurantItem
+              key={restaurant.id}
+              image={require('../assets/images/SliderHome/burger.jpg')}
+              title={restaurant.name}
+              shortDescription={restaurant.shortDescription}
+              navigation={props.navigation}
+              restaurant={restaurant}
+            />
+          );
+        })}
       </ScrollView>
     </View>
   );

@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import auth from '@react-native-firebase/auth';
 import {AuthContext} from './AuthProvider';
+import {RestaurantProvider} from './RestaurantProvider';
 
 import Loading from '../components/Loading';
 
@@ -27,7 +28,13 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
+      {user ? (
+        <RestaurantProvider>
+          <AppStack />
+        </RestaurantProvider>
+      ) : (
+        <AuthStack />
+      )}
     </NavigationContainer>
   );
 };
