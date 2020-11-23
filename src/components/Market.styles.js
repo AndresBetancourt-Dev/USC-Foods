@@ -59,9 +59,18 @@ export const SubProductContent = styled.View`
   flex-direction: column;
 `;
 
-export const SubProductImage = styled.View`
+export const SubProductImageContainer = styled.View`
   width: 70px;
   height: 70px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SubProductImage = styled.Image`
+  width: 90%;
+  height: 90%;
   border-radius: 10px;
 `;
 

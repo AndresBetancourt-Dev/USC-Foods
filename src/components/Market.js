@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, TouchableOpacity } from 'react-native';
+import {Dimensions, TouchableOpacity, Image} from 'react-native';
 import {
   MarketContainer,
   MainProductContainer,
@@ -10,18 +10,17 @@ import {
   ScrollableSection,
   SubProductDescription,
   SubProductContainer,
+  SubProductImageContainer,
   SubProductImage,
   SubProductContent,
 } from './Market.styles';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
+import Carousel, {Pagination} from 'react-native-snap-carousel';
 
 const PRODUCTS = [
   {
     id: '1',
     description: 'Categorias',
     bgColor: '#00b3ff',
-    
-    
   },
   {
     id: '2',
@@ -36,8 +35,7 @@ const PAGES = [
       id: '1',
       description: 'Hamburguesa',
       bgColor: '#00b3ff',
-      
-      
+      imageUrl: '../assets/images/Main/usc-foods-logo.png',
     },
     {
       id: '2',
@@ -71,44 +69,44 @@ const PAGES = [
     },
     {
       id: '8',
-      description: ' Box',
+      description: 'Carnes',
       bgColor: '#00b3ff',
     },
   ],
   [
     {
       id: '1',
-      description: 'SOAT',
+      description: 'Fritos',
       bgColor: '#00b3ff',
     },
     {
       id: '2',
-      description: 'Tecnología',
+      description: 'Dulces',
       bgColor: '#0f0b3f',
     },
     {
       id: '3',
-      description: 'Moda',
+      description: 'Helados',
       bgColor: '#00b3ff',
     },
     {
       id: '4',
-      description: 'Belleza',
+      description: 'Ensaladas',
       bgColor: '#0f0b3f',
     },
     {
       id: '5',
-      description: 'Hogar',
+      description: 'Vegetariano',
       bgColor: '#0f0b3f',
     },
     {
       id: '6',
-      description: 'Floristería',
+      description: 'Chino',
       bgColor: '#00b3ff',
     },
     {
       id: '7',
-      description: 'Regalos',
+      description: 'Gourmet',
       bgColor: '#0f0b3f',
     },
     {
@@ -193,7 +191,7 @@ const PAGES = [
   ],
 ];
 
-const { width } = Dimensions.get('window');
+const {width} = Dimensions.get('window');
 
 class Market extends React.Component {
   state = {
@@ -201,18 +199,19 @@ class Market extends React.Component {
   };
 
   render() {
-    const { activeSlideIndex } = this.state;
+    const {activeSlideIndex} = this.state;
 
     return (
       <MarketContainer>
-           <MainProducts>{PRODUCTS.map(p => this.renderProduct(p))}
-           </MainProducts>
+        <MainProducts>
+          {PRODUCTS.map((p) => this.renderProduct(p))}
+        </MainProducts>
         <Carousel
           data={PAGES}
           renderItem={this.renderPage}
           sliderWidth={width - 20}
           itemWidth={width - 20}
-          onSnapToItem={index => this.setState({ activeSlideIndex: index })}
+          onSnapToItem={(index) => this.setState({activeSlideIndex: index})}
         />
         <Pagination
           dotsLength={PAGES.length}
@@ -229,25 +228,28 @@ class Market extends React.Component {
     );
   }
 
-  renderProduct({ id, description, bgColor }) {
+  renderProduct({id, description, bgColor}) {
     return (
       <MainProductContainer key={id}>
-        <MainProductContent style={{ backgroundColor: bgColor }}>
-          <MainProductImage />
+        <MainProductContent style={{backgroundColor: bgColor}}>
+          <MainProductImage></MainProductImage>
           <MainProductDescription>{description}</MainProductDescription>
-        
         </MainProductContent>
       </MainProductContainer>
     );
   }
 
-  renderPage = ({ index }) => {
+  renderPage = ({index}) => {
     return (
-      <ScrollableSection style={{ width: width - 20 }} key={index}>
+      <ScrollableSection style={{width: width - 20}} key={index}>
         {PAGES[index].map((item, i) => (
           <SubProductContainer key={i}>
             <SubProductContent>
-              <SubProductImage style={{ backgroundColor: item.bgColor }} />
+              <SubProductImageContainer style={{backgroundColor: item.bgColor}}>
+                <SubProductImage
+                  source={require('../assets/images/Main/usc-foods-logo.png')}
+                />
+              </SubProductImageContainer>
               <SubProductDescription>{item.description}</SubProductDescription>
             </SubProductContent>
           </SubProductContainer>

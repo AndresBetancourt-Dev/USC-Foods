@@ -6,11 +6,19 @@ export const HeaderContainer = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: #eee;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
   padding: 10px;
   background-color: #fff;
 `;
 
-export const UserAvatar = styled.View`
+export const HeaderTitle = styled.Text`
+  font-family: 'Poppins-ExtraBold';
+  font-size: 20px;
+  color: #00b3ff;
+`;
+
+export const DrawerToggler = styled.TouchableOpacity`
   width: 30px;
   height: 30px;
   background-color: #00b3ff;

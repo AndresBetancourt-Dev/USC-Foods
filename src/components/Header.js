@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   HeaderContainer,
-  UserAvatar,
+  HeaderTitle,
+  DrawerToggler,
   UserAdress,
   Cupon,
   UserAvatarButton,
@@ -14,9 +15,9 @@ const Header = (props) => {
 
   return (
     <HeaderContainer>
+      <DrawerToggler />
+      <HeaderTitle>USC Foods</HeaderTitle>
       <UserAvatarButton onPress={handleUserAvatarPressed} />
-      <UserAdress> </UserAdress>
-      <Cupon>Buscar</Cupon>
     </HeaderContainer>
   );
 };
