@@ -14,13 +14,13 @@ import HeaderImageScrollView, {
 } from 'react-native-image-header-scroll-view';
 
 import * as Animatable from 'react-native-animatable';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
 
 const DetailsProducto = ({route, navigation}) => {
   const {restaurant, image} = route.params;
+  
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -31,15 +31,29 @@ const DetailsProducto = ({route, navigation}) => {
         minOverlayOpacity={0.3}
         renderHeader={() => <Image source={image} style={styles.image} />}
         renderForeground={() => (
-          <View style={styles.titleContainer}>
-            <Text style={styles.imageTitle}>{restaurant.name}</Text>
-          </View>
+         <View></View>
+          
+          
         )}
+
+
         renderFixedForeground={() => (
-          <Animatable.View style={styles.navTitleView}>
-            <Text style={styles.navTitle}>title</Text>
+          <Animatable.View style={styles.navTitleView} >
+            <Text style={styles.navTitle}>{restaurant.name}</Text>
           </Animatable.View>
-        )}></HeaderImageScrollView>
+        )}>
+           <View style={styles.titleContainer}>
+            <Text style={styles.imageTitle}>{restaurant.name}</Text>
+            
+            <View style={styles.description}>
+            <Text style={styles.description}>{restaurant.shortDescription}</Text>
+            </View>
+            
+          </View>
+
+        </HeaderImageScrollView>
+
+        
     </View>
   );
 };
@@ -48,7 +62,9 @@ export default DetailsProducto;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 63,
     flex: 1,
+
   },
   image: {
     height: MAX_HEIGHT,
@@ -59,6 +75,11 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
   },
+  titl: {
+    fontSize: 23,
+    color: '#007AFF'
+  },
+
   name: {
     fontWeight: 'bold',
   },
@@ -100,9 +121,10 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   },
   imageTitle: {
-    color: 'white',
+    color: '#007AFF',
     backgroundColor: 'transparent',
     fontSize: 24,
     fontFamily: 'Poppins-ExtraBold',
@@ -121,5 +143,11 @@ const styles = StyleSheet.create({
   },
   sectionLarge: {
     minHeight: 300,
+  },
+
+  description: {
+      marginTop: 10,
+      fontSize: 16,
+      
   },
 });
