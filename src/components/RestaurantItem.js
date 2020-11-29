@@ -6,7 +6,14 @@ import Loading from './Loading';
 const RestaurantItem = (props) => {
   return (
     <View style={styles.card}>
-      <TouchableOpacity style={styles.card} onPress={() => <Loading />}>
+      <TouchableOpacity
+        style={styles.card}
+        onPress={() =>
+          props.navigation.navigate('Details', {
+            restaurant: props.restaurant,
+            image: props.image,
+          })
+        }>
         <View style={styles.cardImgWrapper}>
           <Image
             source={props.image}
