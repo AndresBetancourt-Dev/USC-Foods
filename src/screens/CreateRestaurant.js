@@ -1,137 +1,131 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, TabBarIOSItem} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Button, TextInput} from 'react-native-paper';
+import React, {useState, useCallback} from 'react';
+import {View, StyleSheet, ToastAndroid} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
 
+import {HeaderTitle} from '../components/Text.styles';
+import CurryImagePicker from '../components/CurryImagePicker';
+import FormButton from '../components/FormButton';
+import FormInput from '../components/FormInput';
 
+const CreateRestaurant = (props) => {
+  const [restaurant, setRestaurant] = useState({
+    imageUrl: {
+      uri: null,
+    },
+    name: '',
+    shortDescription: '',
+    longDescription: '',
+    productos: [],
+    estrellas: '',
+  });
 
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
+  const setRestaurantImage = (image) => {
+    setRestaurant({
+      ...restaurant,
+      imageUrl: image,
+    });
+  };
 
+  const setStars = useCallback((stars) => {
+    if (stars < 1 || stars > 5) {
+      ToastAndroid.show(
+        'Debes digitar un valor entre 1 y 5',
+        ToastAndroid.SHORT,
+      );
+    }
+    setRestaurant({
+      ...restaurant,
+      estrellas: parseInt(stars),
+      cantidadVotos: 1,
+      votos: [parseInt(stars)],
+    });
+  });
 
-
-
-const CreateRestaurant = () => {
+  const handleSubmit = () => {
+    console.log(restaurant);
+  };
 
   return (
-
-    
     <View>
-      <Header />
-      <ScrollView style={styles.cardsWrapper}>
-      <Text style={{
-            alignSelf: 'center',
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#333',
-            fontFamily: 'Poppins-ExtraBold',
-            marginVertical: 10,
+      <Header props={props} />
+      <ScrollView style={styles.formWrapper}>
+        <HeaderTitle>Crear restaurante</HeaderTitle>
 
-          }}>
-          Crear restaurante</Text>
-      
-          <View style={styles.action}>
-          <FontAwesome name="shopping-basket"    size={20} />
-          <TextInput
-            placeholder="Nombre del restaurante"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-               
-              },
-            ]}
-          />
-        </View>
+        <CurryImagePicker
+          image={restaurant.imageUrl}
+          onImagePicked={setRestaurantImage}
+        />
+
         <View style={styles.action}>
-          <FontAwesome name="product-hunt"  size={20} />
-          <TextInput
-            placeholder="Nombre del Producto"
-            placeholderTextColor="#666666"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-            
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="phone-square"  size={20} />
-          <TextInput
-            placeholder="Telefono"
-            placeholderTextColor="#666666"
-            keyboardType="number-pad"
-            autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-               
-              },
-            ]}
-          />
-        </View>
-        <View style={styles.action}>
-          <FontAwesome name="envelope-o"  size={20} />
-          <TextInput
-            placeholder="Email"
-            placeholderTextColor="#666666"
+          <FormInput
+            labelValue={restaurant.name}
+            onChangeText={(name) => {
+              setRestaurant({...restaurant, name: name});
+            }}
+            iconType="font"
+            placeholderText="Nombre del Restaurante"
             keyboardType="email-address"
+            autoCapitalize="none"
+            width={'80%'}
             autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-             
-              },
-            ]}
           />
         </View>
+
         <View style={styles.action}>
-          <FontAwesome name="map-marker"  size={20} />
-          <TextInput
-            placeholder="Dirrecion"
-            placeholderTextColor="#666666"
+          <FormInput
+            labelValue={restaurant.shortDescription}
+            onChangeText={(shortDescription) => {
+              setRestaurant({
+                ...restaurant,
+                shortDescription: shortDescription,
+              });
+            }}
+            width={'80%'}
+            iconType="align-right"
+            placeholderText="Descripción Corta"
+            keyboardType="email-address"
+            autoCapitalize="none"
             autoCorrect={false}
-            style={[
-              styles.textInput,
-              {
-               
-              },
-            ]}
           />
         </View>
 
-        <View style={styles.cardsWrapper}>
-
-        <Text style={{
-            alignSelf: 'center',
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#333',
-            fontFamily: 'Poppins-ExtraBold',
-            marginVertical: 10,
-
-          }}>
-             Tomar foto del producto</Text>
-             
-          <View style={{
-           alignSelf: 'center',
-           marginTop: 20,
-           width: 40,
-           height: 100,
-          }}>
-          <FontAwesome name="camera"  size={20} />
-
-            
-
+        <View style={styles.action}>
+          <FormInput
+            labelValue={restaurant.descripcion}
+            onChangeText={(descripcion) => {
+              setRestaurant({...restaurant, descripcion: descripcion});
+            }}
+            width={'80%'}
+            iconType="align-justify"
+            placeholderText="Descripción"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
         </View>
+
+        <View style={styles.action}>
+          <FormInput
+            onChangeText={setStars}
+            iconType="star"
+            placeholderText="Estrellas"
+            keyboardType="numeric"
+            autoCapitalize="none"
+            width={'80%'}
+            autoCorrect={false}
+          />
         </View>
-        
+
         <View style={styles.buttonContainer}>
+          <FormButton
+            buttonTitle="Enviar"
+            color={'white'}
+            backgroundColor={'#00b3ff'}
+            width="80%"
+            onPress={handleSubmit}
+          />
         </View>
-        
       </ScrollView>
     </View>
   );
@@ -140,66 +134,67 @@ const CreateRestaurant = () => {
 export default CreateRestaurant;
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#34495e',
     paddingVertical: 20,
     paddingHorizontal: 30,
   },
+  formWrapper: {
+    marginVertical: 50,
+  },
 
   cardsWrapper: {
     marginTop: 20,
     width: '90%',
     alignSelf: 'center',
-    
   },
 
-textInput: {
+  textInput: {
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    paddingLeft: 10,
+    color: '#05375a',
+  },
 
-  marginTop: Platform.OS === 'ios' ? 0 : -12,
-  paddingLeft: 10,
-  color: '#05375a',
-},
-
-title: {
+  title: {
     fontSize: 16,
     fontWeight: 'bold',
     marginVertical: 10,
+  },
 
-},
-
-text: {
+  text: {
     borderWidth: 1,
     borderColor: '#FFF',
     height: 45,
     width: '100%',
     paddingHorizontal: 10,
-    
-
-},
-action: {
-  flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
-        paddingBottom: 5
-},
-actionError: {
-  flexDirection: 'row',
-  marginTop: 10,
-  borderBottomWidth: 1,
-  borderBottomColor: '#FF0000',
-  paddingBottom: 5
-},
-textInput: {
-  flex: 1,
-  marginTop: Platform.OS === 'ios' ? 0 : -12,
-  paddingLeft: 10,
-  color: '#05375a',
-},
-
-
-
-
+  },
+  action: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f2f2f2',
+    paddingBottom: 5,
+    justifyContent: 'center',
+  },
+  actionError: {
+    flexDirection: 'row',
+    marginTop: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#FF0000',
+    paddingBottom: 5,
+  },
+  textInput: {
+    flex: 1,
+    marginTop: Platform.OS === 'ios' ? 0 : -12,
+    paddingLeft: 10,
+    color: '#05375a',
+  },
+  buttonContainer: {
+    width: '100%',
+    height: 100,
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

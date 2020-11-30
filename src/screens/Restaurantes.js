@@ -3,31 +3,20 @@ import {Text, StyleSheet, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
 import RestaurantItem from '../components/RestaurantItem';
+import {HeaderTitle} from '../components/Text.styles';
 import {RestaurantContext} from '../navigation/RestaurantProvider';
 
 const Restaurantes = (props) => {
   const {getAllRestaurants, restaurants} = useContext(RestaurantContext);
-  const handleClick = () => {
-    console.log('clikc');
-  };
 
   useEffect(() => {
     getAllRestaurants();
   }, []);
   return (
     <View>
-      <Header />
+      <Header props={props} />
       <ScrollView style={styles.cardsWrapper}>
-        <Text
-          style={{
-            alignSelf: 'center',
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#333',
-            fontFamily: 'Poppins-ExtraBold',
-          }}>
-          Restaurantes
-        </Text>
+        <HeaderTitle>Restaurantes</HeaderTitle>
         {restaurants.map((restaurant) => {
           return (
             <RestaurantItem
@@ -37,6 +26,8 @@ const Restaurantes = (props) => {
               shortDescription={restaurant.shortDescription}
               navigation={props.navigation}
               restaurant={restaurant}
+              stars={restaurant.estrellas}
+              reviews={restaurant.cantidadVotos}
             />
           );
         })}
