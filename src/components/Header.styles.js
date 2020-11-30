@@ -23,6 +23,19 @@ export const DrawerToggler = styled.TouchableOpacity`
   height: 30px;
   background-color: #00b3ff;
   border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Logout = styled.TouchableOpacity`
+  width: 30px;
+  height: 30px;
+  background-color: #a00;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const UserAdress = styled.Text`

@@ -1,16 +1,28 @@
 import React from 'react';
-import {View, TextInput, Button, StyleSheet} from 'react-native';
-import AntDesign from 'react-native-vector-icons/AntDesign';
+import {View, TextInput, StyleSheet} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import {windowHeight, windowWidth} from '../utils/Dimensiones';
 
-const FormInput = ({iconType, labelValue, placeholderText, ...rest}) => {
+const FormInput = ({iconType, labelValue, placeholderText, width, ...rest}) => {
   return (
-    <View style={styles.inputContainter}>
+    <View
+      style={{
+        marginTop: 5,
+        marginBottom: 10,
+        width: width || '100%',
+        height: windowHeight / 15,
+        borderColor: '#00b3ff',
+        borderRadius: 8,
+        borderWidth: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+      }}>
       <View style={styles.iconStyle}>
-        <AntDesign name={iconType} size={25} color={'#00b3ff'} />
+        <FontAwesome name={iconType} size={25} color={'#00b3ff'} />
       </View>
       <TextInput
-        style={[styles.input]}
+        style={styles.input}
         numberOfLines={1}
         value={labelValue}
         placeholder={placeholderText}
@@ -24,18 +36,7 @@ const FormInput = ({iconType, labelValue, placeholderText, ...rest}) => {
 export default FormInput;
 
 const styles = StyleSheet.create({
-  inputContainter: {
-    marginTop: 5,
-    marginBottom: 10,
-    width: '100%',
-    height: windowHeight / 15,
-    borderColor: '#00b3ff',
-    borderRadius: 8,
-    borderWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
+  inputContainter: {},
   iconStyle: {
     padding: 10,
     height: '100%',
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     color: '#00b3ff',
     justifyContent: 'center',
     alignItems: 'center',
+    fontFamily: 'Poppins-SemiBold',
   },
   inputField: {
     padding: 10,

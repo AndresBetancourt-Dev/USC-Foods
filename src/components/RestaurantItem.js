@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import StarRating from '../components/StarRating';
-import Loading from './Loading';
+import {RestaurantTitle} from './RestauranteItem.styles';
 
 const RestaurantItem = (props) => {
   return (
@@ -22,8 +22,10 @@ const RestaurantItem = (props) => {
           />
         </View>
         <View style={styles.cardInfo}>
-          <Text style={styles.cardTitle}>{props.title}</Text>
-          <StarRating ratings={4} reviews={99} />
+          <RestaurantTitle style={styles.cardTitle}>
+            {props.title}
+          </RestaurantTitle>
+          <StarRating ratings={props.stars} reviews={props.reviews} />
           <Text style={styles.cardDetails}>{props.shortDescription}</Text>
         </View>
       </TouchableOpacity>

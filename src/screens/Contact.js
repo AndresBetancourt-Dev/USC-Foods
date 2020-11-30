@@ -3,10 +3,10 @@ import {View, Text, StyleSheet} from 'react-native';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import Header from '../components/Header';
 
-const Contact = () => {
+const Contact = (props) => {
   return (
     <View>
-      <Header />
+      <Header props={props} />
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}

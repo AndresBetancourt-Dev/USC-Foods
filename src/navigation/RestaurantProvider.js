@@ -29,6 +29,17 @@ export const RestaurantProvider = ({children}) => {
             console.log(error.message);
           }
         },
+        addRestaurant: async (restaurant, restaurantComplete) => {
+          restaurant.createdAt = firestore()
+            .collection('restaurantes')
+            .add(restaurant);
+        },
+        uploadRestaurant(food, onFoodUploaded, {updating}) {
+          if (food.imageUrl) {
+            const fileExtension = food.imageUrl.uri.split('.').pop();
+            console.log(fileExtension);
+          }
+        },
       }}>
       {children}
     </RestaurantContext.Provider>

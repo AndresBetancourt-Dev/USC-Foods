@@ -1,9 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import AuxiliarHome from '../../screens/AuxiliarHome';
-import Home from '../../screens/Home';
 import Restaurantes from '../../screens/Restaurantes';
-import DetailsProducto from '../../screens/DetailsProducto';
+import DetailsRestaurant from '../../screens/DetailsRestaurant';
 
 const StackRestaurante = createStackNavigator();
 
@@ -17,7 +15,7 @@ const RestaurantesStack = () => {
       />
       <StackRestaurante.Screen
         name="Details"
-        component={DetailsProducto}
+        component={DetailsRestaurant}
         options={{headerShown: false}}
       />
     </StackRestaurante.Navigator>
