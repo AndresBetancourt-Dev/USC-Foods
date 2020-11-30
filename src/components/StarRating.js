@@ -10,12 +10,22 @@ const StarRating = (props) => {
     let name = 'star';
     if (i > props.ratings) {
       stars.push(
-        <FontAwesome5 name={'star'} size={12.5} style={styles.star} key={i} />,
+        <FontAwesome5
+          name={'star'}
+          size={props.size - 2.5}
+          style={styles.star}
+          key={i}
+        />,
       );
       continue;
     }
     stars.push(
-      <FontAwesome name={'star'} size={15} style={styles.star} key={i} />,
+      <FontAwesome
+        name={'star'}
+        size={props.size}
+        style={styles.star}
+        key={i}
+      />,
     );
   }
 

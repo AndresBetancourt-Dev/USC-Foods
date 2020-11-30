@@ -1,10 +1,34 @@
 import React, {createContext, useState} from 'react';
 import firestore from '@react-native-firebase/firestore';
+import 'react-native-get-random-values';
+import {v4 as uuid4} from 'uuid';
+import storage from '@react-native-firebase/storage';
 
 export const RestaurantContext = createContext();
 
 export const RestaurantProvider = ({children}) => {
   const [restaurants, setRestaurants] = useState([]);
+
+  const addRestaurant = async (restaurant, restaurantComplete) => {
+    await firestore().collection('restaurantes').add(restaurant);
+  };
+  const uploadRestaurant = async (restaurant, onFoodUploaded, {updating}) => {
+    if (restaurant.imageUrl) {
+      try {
+        const fileExtension = restaurant.imageUrl.uri.split('.').pop();
+        var uuid = uuid4();
+        const fileName = `${uuid}.${fileExtension}`;
+        var storageRef = storage().ref(`restaurantes/imagenes/${fileName}`);
+        await storageRef.putFile(restaurant.imageUrl.uri);
+        const downloadUrl = await storageRef.getDownloadURL();
+        restaurant.imageUrl = downloadUrl;
+        addRestaurant(restaurant, null);
+      } catch (error) {
+        return;
+      }
+    }
+  };
+
   return (
     <RestaurantContext.Provider
       value={{
@@ -20,7 +44,7 @@ export const RestaurantProvider = ({children}) => {
             }
 
             function onError(error) {
-              console.error(error);
+              console.error(error.message);
             }
             await firestore()
               .collection('restaurantes')
@@ -29,17 +53,8 @@ export const RestaurantProvider = ({children}) => {
             console.log(error.message);
           }
         },
-        addRestaurant: async (restaurant, restaurantComplete) => {
-          restaurant.createdAt = firestore()
-            .collection('restaurantes')
-            .add(restaurant);
-        },
-        uploadRestaurant(food, onFoodUploaded, {updating}) {
-          if (food.imageUrl) {
-            const fileExtension = food.imageUrl.uri.split('.').pop();
-            console.log(fileExtension);
-          }
-        },
+        addRestaurant,
+        uploadRestaurant,
       }}>
       {children}
     </RestaurantContext.Provider>

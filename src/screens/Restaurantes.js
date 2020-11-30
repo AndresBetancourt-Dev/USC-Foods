@@ -21,13 +21,13 @@ const Restaurantes = (props) => {
           return (
             <RestaurantItem
               key={restaurant.id}
-              image={require('../assets/images/SliderHome/burger.jpg')}
+              image={{uri: restaurant.imageUrl || null}}
               title={restaurant.name}
               shortDescription={restaurant.shortDescription}
               navigation={props.navigation}
               restaurant={restaurant}
-              stars={restaurant.estrellas}
-              reviews={restaurant.cantidadVotos}
+              stars={restaurant.stars}
+              reviews={restaurant.quantityVotes}
             />
           );
         })}

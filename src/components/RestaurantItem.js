@@ -25,7 +25,7 @@ const RestaurantItem = (props) => {
           <RestaurantTitle style={styles.cardTitle}>
             {props.title}
           </RestaurantTitle>
-          <StarRating ratings={props.stars} reviews={props.reviews} />
+          <StarRating ratings={props.stars} reviews={props.reviews} size={15} />
           <Text style={styles.cardDetails}>{props.shortDescription}</Text>
         </View>
       </TouchableOpacity>

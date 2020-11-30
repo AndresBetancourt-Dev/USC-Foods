@@ -90,7 +90,6 @@ const SignUp = ({navigation}) => {
         labelValue={email}
         onChangeText={(userEmail) => {
           setEmail(userEmail);
-          console.log(email);
         }}
         iconType="user"
         placeholderText="Usuario"
@@ -102,7 +101,6 @@ const SignUp = ({navigation}) => {
         iconType="lock"
         onChangeText={(userPassword) => {
           setPassword(userPassword);
-          console.log(password);
         }}
         placeholderText="Contraseña"
         secureTextEntry={true}
@@ -111,7 +109,6 @@ const SignUp = ({navigation}) => {
         iconType="lock"
         onChangeText={(userPassword) => {
           setConfirmPassword(userPassword);
-          console.log(confirmPassword);
         }}
         placeholderText="Confirmar Contraseña"
         secureTextEntry={true}

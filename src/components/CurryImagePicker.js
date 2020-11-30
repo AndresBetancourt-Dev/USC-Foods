@@ -32,14 +32,14 @@ const CurryImagePicker = ({image, onImagePicked}) => {
             ToastAndroid.SHORT,
           );
         } else {
-          if (response.uri === undefined) {
+          if (response.path === undefined) {
             ToastAndroid.show(
               'No has seleccionado una imagen',
               ToastAndroid.SHORT,
             );
           } else {
-            setSelectedImage({uri: response.uri});
-            onImagePicked({uri: response.uri});
+            setSelectedImage({uri: 'file://' + response.path});
+            onImagePicked({uri: 'file://' + response.path});
             ToastAndroid.show('Imagen Subida Exitosamente', ToastAndroid.SHORT);
           }
         }
@@ -53,7 +53,7 @@ const CurryImagePicker = ({image, onImagePicked}) => {
         <Image style={styles.image} source={selectedImage} />
       </View>
       <View style={{marginTop: 20}}>
-        <FormButton buttonTitle={'Subir'} onPress={handleImagePicked} />
+        <FormButton buttonTitle={'Subir Imagen'} onPress={handleImagePicked} />
       </View>
     </View>
   );

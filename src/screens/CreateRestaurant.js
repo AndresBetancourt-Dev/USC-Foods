@@ -1,8 +1,9 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useContext} from 'react';
 import {View, StyleSheet, ToastAndroid} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import Header from '../components/Header';
-
+import {RestaurantContext} from '../navigation/RestaurantProvider';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {HeaderTitle} from '../components/Text.styles';
 import CurryImagePicker from '../components/CurryImagePicker';
 import FormButton from '../components/FormButton';
@@ -16,9 +17,18 @@ const CreateRestaurant = (props) => {
     name: '',
     shortDescription: '',
     longDescription: '',
-    productos: [],
-    estrellas: '',
+    address: '',
+    telephone: '',
+    coordinates: {
+      latitude: 0,
+      longitude: 0,
+    },
+    products: [],
+    stars: 0,
+    phone: '',
   });
+
+  const {uploadRestaurant} = useContext(RestaurantContext);
 
   const setRestaurantImage = (image) => {
     setRestaurant({
@@ -33,30 +43,32 @@ const CreateRestaurant = (props) => {
         'Debes digitar un valor entre 1 y 5',
         ToastAndroid.SHORT,
       );
+    } else {
+      setRestaurant({
+        ...restaurant,
+        stars: parseInt(stars),
+        quantityVotes: 1,
+        votes: [parseInt(stars)],
+      });
     }
-    setRestaurant({
-      ...restaurant,
-      estrellas: parseInt(stars),
-      cantidadVotos: 1,
-      votos: [parseInt(stars)],
-    });
   });
 
-  const handleSubmit = () => {
-    console.log(restaurant);
+  const handleSubmit = async () => {
+    await uploadRestaurant(restaurant, null, {updating: false});
+    props.navigation.navigate('Home');
   };
 
   return (
     <View>
       <Header props={props} />
-      <ScrollView style={styles.formWrapper}>
+      <ScrollView
+        style={styles.formWrapper}
+        contentContainerStyle={styles.formWrapperContainer}>
         <HeaderTitle>Crear restaurante</HeaderTitle>
-
         <CurryImagePicker
           image={restaurant.imageUrl}
           onImagePicked={setRestaurantImage}
         />
-
         <View style={styles.action}>
           <FormInput
             labelValue={restaurant.name}
@@ -71,7 +83,6 @@ const CreateRestaurant = (props) => {
             autoCorrect={false}
           />
         </View>
-
         <View style={styles.action}>
           <FormInput
             labelValue={restaurant.shortDescription}
@@ -89,12 +100,11 @@ const CreateRestaurant = (props) => {
             autoCorrect={false}
           />
         </View>
-
         <View style={styles.action}>
           <FormInput
             labelValue={restaurant.descripcion}
-            onChangeText={(descripcion) => {
-              setRestaurant({...restaurant, descripcion: descripcion});
+            onChangeText={(longDescription) => {
+              setRestaurant({...restaurant, longDescription: longDescription});
             }}
             width={'80%'}
             iconType="align-justify"
@@ -104,7 +114,6 @@ const CreateRestaurant = (props) => {
             autoCorrect={false}
           />
         </View>
-
         <View style={styles.action}>
           <FormInput
             onChangeText={setStars}
@@ -117,6 +126,90 @@ const CreateRestaurant = (props) => {
           />
         </View>
 
+        <View style={styles.action}>
+          <FormInput
+            labelValue={restaurant.descripcion}
+            onChangeText={(address) => {
+              setRestaurant({...restaurant, address: address});
+            }}
+            iconType="map-marker"
+            placeholderText="Dirección"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            width={'80%'}
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.action}>
+          <FormInput
+            labelValue={restaurant.descripcion}
+            onChangeText={(phone) => {
+              setRestaurant({...restaurant, phone: phone});
+            }}
+            iconType="phone"
+            placeholderText="Teléfono"
+            keyboardType="numeric"
+            autoCapitalize="none"
+            width={'80%'}
+            autoCorrect={false}
+          />
+        </View>
+        <View style={styles.action}>
+          <FormInput
+            labelValue={restaurant.coordinates.latitude.toString()}
+            onChangeText={(address) => {
+              setRestaurant({...restaurant, address: address});
+            }}
+            iconType="map-marker"
+            placeholderText="Latitud"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            width={'40%'}
+            autoCorrect={false}
+            editable={false}
+          />
+          <FormInput
+            labelValue={restaurant.coordinates.longitude.toString()}
+            iconType="map-marker"
+            placeholderText="Longitud"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            width={'40%'}
+            autoCorrect={false}
+            editable={false}
+          />
+        </View>
+        <MapView
+          provider={PROVIDER_GOOGLE}
+          style={styles.map}
+          mapType={'standard'}
+          onPress={(event) => {
+            setRestaurant({
+              ...restaurant,
+              coordinates: {
+                latitude: event.nativeEvent.coordinate.latitude,
+                longitude: event.nativeEvent.coordinate.longitude,
+              },
+            });
+          }}
+          region={{
+            latitude: 3.4027650132192724,
+            longitude: -76.54829745635273,
+            latitudeDelta: 0.015,
+            longitudeDelta: 0.0121,
+          }}>
+          <Marker
+            coordinate={{
+              latitude: restaurant.coordinates.latitude || 3.4027650132192724,
+              longitude: restaurant.coordinates.longitude || -76.54829745635273,
+            }}
+            image={require('../assets/images/Contacto/marker-medium.png')}
+            title={restaurant.name || 'Universidad Santiago de Cali'}
+            description={
+              restaurant.address || `Calle 5 # 62-00, Barrio Pampalinda`
+            }
+          />
+        </MapView>
         <View style={styles.buttonContainer}>
           <FormButton
             buttonTitle="Enviar"
@@ -141,7 +234,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
   },
   formWrapper: {
-    marginVertical: 50,
+    marginTop: 20,
+    marginBottom: 55,
+  },
+  formWrapperContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   cardsWrapper: {
@@ -196,5 +295,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  map: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 200,
+    width: '80%',
+    borderRadius: 20,
   },
 });

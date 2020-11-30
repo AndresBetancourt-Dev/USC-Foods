@@ -50,7 +50,6 @@ const Login = ({navigation}) => {
   const {login} = useContext(AuthContext);
 
   const handleLogin = async () => {
-    console.log(email);
     if (email === '' || password === '') {
       ToastAndroid.show(
         'Debe ingresar su correo y su contraseña',

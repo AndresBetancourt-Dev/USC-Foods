@@ -13,6 +13,8 @@ import HeaderImageScrollView from 'react-native-image-header-scroll-view';
 
 import * as Animatable from 'react-native-animatable';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import StarRating from '../components/StarRating';
 
 const MIN_HEIGHT = Platform.OS === 'ios' ? 90 : 55;
 const MAX_HEIGHT = 350;
@@ -32,7 +34,7 @@ const DetailsProducto = ({route, navigation}) => {
           <TouchableOpacity
             onPress={() => navigation.goBack()}
             style={styles.back}>
-            <FontAwesome name={'arrow-left'} color={'#00b3ff'} size={30} />
+            <FontAwesome name={'arrow-left'} color={'white'} size={30} />
           </TouchableOpacity>
         )}
         renderFixedForeground={() => (
@@ -48,6 +50,35 @@ const DetailsProducto = ({route, navigation}) => {
               {restaurant.shortDescription}
             </Text>
           </View>
+
+          <View style={styles.description}>
+            <Text style={styles.description}>{restaurant.longDescription}</Text>
+          </View>
+          <View style={styles.stars}>
+            <Text style={styles.poppins}>Calificación {'     '}</Text>
+            <StarRating
+              ratings={restaurant.stars}
+              reviews={restaurant.quantityVotes}
+              size={22.5}
+            />
+          </View>
+          <View style={styles.contentContainer}>
+            <Text style={styles.contentTitle}>
+              {' '}
+              <FontAwesome5 name="map-marked-alt" color={'black'} size={20} />
+              {'  '}
+              Dirección
+            </Text>
+            <Text style={styles.contentText}>{restaurant.address}</Text>
+          </View>
+          <View style={styles.contentContainer}>
+            <Text style={styles.contentTitle}>
+              <FontAwesome name="phone" color={'black'} size={20} />
+              {'  '}
+              Teléfono
+            </Text>
+            <Text style={styles.contentText}>{restaurant.phone}</Text>
+          </View>
         </View>
       </HeaderImageScrollView>
     </View>
@@ -59,6 +90,10 @@ export default DetailsProducto;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  poppins: {
+    fontFamily: 'Poppins-ExtraBold',
+    fontSize: 17.5,
   },
   image: {
     height: MAX_HEIGHT,
@@ -87,9 +122,36 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+  contentContainer: {
+    flex: 1,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  contentTitle: {
+    fontFamily: 'Poppins-ExtraBold',
+    fontSize: 17.5,
+    width: '100%',
+    textAlign: 'center',
+  },
+  contentText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 17.5,
+    width: '100%',
+    textAlign: 'center',
+  },
   sectionContent: {
     fontSize: 16,
     textAlign: 'justify',
+  },
+  stars: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '80%',
+    marginVertical: 20,
+    justifyContent: 'center',
   },
   categories: {
     flexDirection: 'row',
@@ -146,5 +208,14 @@ const styles = StyleSheet.create({
   back: {
     marginTop: 10,
     marginLeft: 10,
+    flex: 0,
+    alignItems: 'center',
+    borderRadius: 50,
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    width: 40,
+    height: 40,
+    backgroundColor: '#00b3ff',
+    position: 'absolute',
   },
 });
