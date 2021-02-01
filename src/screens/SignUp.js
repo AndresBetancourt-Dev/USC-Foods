@@ -12,6 +12,7 @@ import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 import {AuthContext} from '../navigation/AuthProvider';
+import { windowWidth } from '../utils/Dimensiones';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
     marginVertical: 35,
   },
   navButtonText: {
-    fontSize: 18,
+    fontSize: windowWidth / 25,
     fontWeight: '500',
     color: '#fff',
   },

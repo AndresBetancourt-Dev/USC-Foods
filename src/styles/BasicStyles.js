@@ -16,9 +16,15 @@ export const primaryStyles = StyleSheet.create({
     width: '100%',
   },
   loading: {
-    flex: 1,
+    display : 'flex',
     alignItems: 'center',
+    height : '100%',
     justifyContent: 'center',
-    backgroundColor: '#00b3ff',
+    backgroundColor: '#00b3fa',
+    flexDirection : 'column'
   },
+  loadingLogo:{
+    width : 200,
+    height : 200
+  }
 });

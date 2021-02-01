@@ -11,6 +11,7 @@ import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 import {AuthContext} from '../navigation/AuthProvider';
+import { windowWidth } from '../utils/Dimensiones';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,10 +20,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#00b3ff',
     padding: 20,
+    width : '100%',
+    height : '100%'
   },
   logo: {
-    height: 150,
-    width: 150,
+    marginTop : 20,
+    height: 130,
+    width: 130,
     resizeMode: 'cover',
   },
   text: {
@@ -38,7 +42,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   navButtonText: {
-    fontSize: 18,
+    fontSize: windowWidth / 25,
     fontWeight: '500',
     color: '#fff',
   },

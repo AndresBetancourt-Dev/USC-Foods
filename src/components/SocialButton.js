@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, View, StyleSheet} from 'react-native';
-import {windowHeight} from '../utils/Dimensiones';
+import {windowHeight, windowWidth} from '../utils/Dimensiones';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const SocialButton = ({buttonType, color, buttonTitle, bgColor, ...rest}) => {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: windowWidth / 25,
     fontWeight: 'bold',
     color: '#00b3ff',
     fontFamily: 'Poppins-Regular',

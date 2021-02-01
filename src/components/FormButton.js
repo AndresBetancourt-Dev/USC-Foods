@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {windowHeight} from '../utils/Dimensiones';
+import {windowHeight, windowWidth} from '../utils/Dimensiones';
 const FormButton = ({
   buttonTitle,
   width,
@@ -19,7 +19,6 @@ const FormButton = ({
         },
         shadowOpacity: 0.58,
         shadowRadius: 16.0,
-
         elevation: 24,
         marginTop: 10,
         width: width || '100%',
@@ -34,7 +33,7 @@ const FormButton = ({
       {...rest}>
       <Text
         style={{
-          fontSize: 18,
+          fontSize: windowWidth / 25,
           color: color || '#00b3ff',
           fontFamily: 'Poppins-ExtraBold',
         }}>
@@ -55,7 +54,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.58,
     shadowRadius: 16.0,
-
     elevation: 24,
     marginTop: 10,
     width: '100%',
